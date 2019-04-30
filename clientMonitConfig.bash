@@ -31,6 +31,8 @@ function setup_by_cmdline {
 
 ##rsyslog.conf
 #send all syslog messages to the server: *.* @ipaddress:port
+sed -i '$ i\*.* @10.2.7.229:514' /etc/rsyslog.conf
+systemctl restart rsyslog
 #
 ##monitrc
 #monit local monitoring on itself
@@ -66,7 +68,7 @@ function check_syslog {
 }
 
 function check_ldap {
-	service=ldap
+	service=slapd
 	if (( $(ps -ef | grep -v grep | grep $service | wc -l) > 0 ))
 		then echo "$service is running!!!"
 	else
@@ -98,7 +100,10 @@ function monit_install {
 #monit config backup and wget preset config file
 function monit_config {
 	cp -p /etc/monitrc /etc/monitrc.BAK
-	wget --directory-prefix=/usr/local/etc/ http://www.github.com/project3/client/monitrc >> monitrc
+	rm -f /etc/monitrc
+	wget --directory-prefix=/usr/local/etc/ http://raw.githubusercontent.com/eyewest/Project3/master/monitrcClient.conf
+	cat /usr/local/etc/monitrcClient.conf >> /etc/monitrc
+	##cp /p3gp2.tar.gz /etc/monit/monitrcClient.conf
 	monit -v
 	monit reload
 	monit summary
