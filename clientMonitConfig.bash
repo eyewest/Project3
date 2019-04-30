@@ -44,10 +44,10 @@ systemctl restart rsyslog
 # email: cit470.sp2019.team.2@gmail.com
 
 #set log recording to include Stnderr and Stndout
-function set_logFile{
-       #	exec > >(tee -ia install_log3.log) 2>&1
-	pwd
-}
+#function set_logFile{
+	#exec > >(tee -ia install_log3.log) 2>&1
+	#pwd
+#}
 
 #check services
 function check_services {
