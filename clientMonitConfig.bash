@@ -45,8 +45,7 @@ systemctl restart rsyslog
 
 #set log recording to include Stnderr and Stndout
 function set_logFile{
-	exec > >(tee -ia install_log3.log)
-	>install_log3.log
+	exec > >(tee -ia install_log3.log) 2>&1
 	pwd
 }
 
