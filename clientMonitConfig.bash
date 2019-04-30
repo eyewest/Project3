@@ -103,6 +103,7 @@ function monit_config {
 	rm -f /etc/monitrc
 	wget --directory-prefix=/usr/local/etc/ http://raw.githubusercontent.com/eyewest/Project3/master/monitrcClient.conf
 	cat /usr/local/etc/monitrcClient.conf >> /etc/monitrc
+	chmod 600 /etc/monitrc
 	##cp /p3gp2.tar.gz /etc/monit/monitrcClient.conf
 	monit -v
 	monit reload
